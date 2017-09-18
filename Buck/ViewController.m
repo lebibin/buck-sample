@@ -13,6 +13,30 @@
 @end
 
 @implementation ViewController
+- (void)loadView
+{
+    self.view = [UIView new];
+    [self.view setBackgroundColor:[UIColor greenColor]];
+    
+    [self addLabel];
+}
+
+- (void)addLabel
+{
+    CGFloat width = 100.f;
+    CGFloat height = 25.f;
+    
+    UILabel *label = [[UILabel alloc] init];
+    [label setText:@"Hello World!"];
+    [label setFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width - width) * 0.5f,
+                              ([UIScreen mainScreen].bounds.size.height - height) * 0.5f,
+                               width,
+                               height)];
+    [label setTextColor:[UIColor whiteColor]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [self.view addSubview:label];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

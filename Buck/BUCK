@@ -1,0 +1,58 @@
+# empty build rule to force Buck build libraries
+apple_library(
+        name = 'Buck',
+        srcs = glob([
+            '**/*.m',
+            ]),
+        deps = [
+            ],
+        frameworks = [
+            ],
+        )
+
+apple_asset_catalog(
+        name = 'BuckAssets',
+        dirs = [
+            'Assets.xcassets',
+            ]
+        )
+
+apple_resource(
+        name = 'BuckResources',
+        files = glob([
+            '**/*.storyboard'
+            ]),
+        dirs = [
+            ],
+        )
+
+apple_binary(
+        name = 'BuckBinary',
+        visibility = ['PUBLIC'],
+        deps = [
+            # main binary
+            ':Buck',
+
+            # resource
+            ':BuckResources',
+
+            # assets
+            ':BuckAssets',
+            ],
+        )
+
+apple_package(
+        name = 'BucksPackage',
+        bundle = ':BuckApp',
+        )
+
+apple_bundle(
+        name = 'BuckApp',
+        product_name = 'Buck',
+        binary = ':BuckBinary',
+        extension = 'app',
+        info_plist = 'Info.plist',
+        info_plist_substitutions = {
+            'PRODUCT_BUNDLE_IDENTIFIER': 'fullsthack.Buck'
+            },
+        )
